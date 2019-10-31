@@ -5,10 +5,11 @@ from classroom.models import (
     Course,
     Lecture,
 )
+from accounts.serializers import UserSerializer
 
 
 class LectureSerializer(ModelSerializer):
-    creator = serializers.StringRelatedField(read_only=True)
+    creator = UserSerializer(read_only=True)
     course = serializers.StringRelatedField(read_only=True) 
 
     class Meta:
