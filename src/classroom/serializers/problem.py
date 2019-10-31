@@ -27,12 +27,11 @@ class SimpleProblemSerializer(ModelSerializer):
             'lecture',
         )
 
-    def validate(self, attrs):
-        if 'deadline' in attrs:
-            if attrs['deadline'] < datetime.today() :
-                msg = "Deadline date can't be before created date"
-                raise serializers.ValidationError(msg)
-        return attrs
+    def validate_deadline(self, deadline):
+        if deadline < datetime.today() :
+            msg = "Deadline date can't be before created date"
+            raise serializers.ValidationError(msg)
+        return deadline
         
     def create(self, validated_data):
         creator = validated_data.pop('creator')
@@ -51,7 +50,7 @@ class SimpleProblemSerializer(ModelSerializer):
         students = course.members.filter(user_type='Student')
         problem.members.add(*list(students)) 
 
-        return course
+        return problem
 
 
 class ProblemUserMembershipSerializer(ModelSerializer):
