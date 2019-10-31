@@ -30,6 +30,8 @@ class UserIsStudent(permissions.BasePermission):
 class UserIsCourseMember(permissions.BasePermission):
 
     def has_permission(self, request, view):
+        if 'course_pk' not in view.kwargs:
+            return False 
         try:
             course = Course.objects.get(id=view.kwargs['course_pk'])
         except Course.DoesNotExist:
