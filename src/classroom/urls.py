@@ -50,17 +50,17 @@ problem_patterns = [
         name='user-problem-list'
     ),
     path(
-        '<int:pk>/',
+        '<int:problem_pk>/',
         views.UserProblemDetailAPIView.as_view(),
         name='user-problem-detail'
     ),
     path(
-        '<int:pk>/solution/',
+        '<int:problem_pk>/solution/',
         views.UserProblemSolutionAPIView.as_view(),
         name='problem-solution'
     ),
     path(
-        '<int:pk>/comments/',
+        '<int:problem_pk>/comments/',
         views.CommentListCreateAPIView.as_view(),
         name='comment-list'
     ),
@@ -78,15 +78,20 @@ homework_patterns = [
         name='done-problem-list'
     ),
     path(
-        'done-problems/<str:username>/',
+        'done-problems/<int:problem_pk>/',
         views.DoneProblemRetriveAPIView.as_view(),
         name='done-problem-list'
     ),
     path(
-        'done-problems/<str:username>/mark/',
+        'done-problems/<int:problem_pk>/mark/',
         views.DoneProblemMarkUpdateAPIView.as_view(),
         name='done-problem-list'
     ),
+    path(
+        'done-problems/<int:problem_pk>/comments/',
+        views.CommentListCreateAPIView.as_view(),
+        name='done-problem-comment'
+    )
 ]
 
 urlpatterns = [

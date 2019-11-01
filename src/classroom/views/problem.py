@@ -34,6 +34,7 @@ class UserProblemDetailAPIView(generics.RetrieveAPIView):
         UserIsStudent,
         UserIsOwner,
     )
+    lookup_url_kwarg = 'problem_pk'
 
 
 class UserProblemSolutionAPIView(generics.ListCreateAPIView):
@@ -44,9 +45,9 @@ class UserProblemSolutionAPIView(generics.ListCreateAPIView):
     )
 
     def get_queryset(self):
-        problem_id = self.kwargs.get('pk')
+        problem_id = self.kwargs.get('problem_pk')
         return ProblemSolution.objects.filter(problem=problem_id)
 
     def perform_create(self, serializer):
-        serializer.save(problem_id=self.kwargs.get('pk'))
+        serializer.save(problem_id=self.kwargs.get('problem_pk'))
 

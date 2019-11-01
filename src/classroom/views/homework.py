@@ -61,8 +61,7 @@ class DoneProblemRetriveAPIView(generics.RetrieveAPIView):
     
     def get(self, request, *args, **kwargs):
         obj = ProblemUserMembership.objects.get(
-            user__username=self.kwargs.get('username'),
-            problem__lecture=self.kwargs.get('lecture_pk'),
+            id=self.kwargs.get('problem_pk'),
         )
         serializer = ProblemUserMembershipSerializer(obj)
         return Response(
@@ -80,8 +79,7 @@ class DoneProblemMarkUpdateAPIView(generics.UpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         obj = ProblemUserMembership.objects.get(
-            user__username=self.kwargs.get('username'),
-            problem__lecture=self.kwargs.get('lecture_pk'),
+            id=self.kwargs.get('problem_pk'),
         )
         obj.mark = request.data.get('mark')
         obj.accept_status = True

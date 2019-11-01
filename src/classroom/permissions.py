@@ -38,4 +38,11 @@ class UserIsCourseMember(permissions.BasePermission):
             return False
         return course.members.filter(id=request.user.id).exists()
 
- 
+
+class UserIsProblemMember(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        if 'problem_pk' not in view.kwargs:
+            return False
+        return request.user.problem_set.filter(
+            problemusermembership__id=view.kwargs['problem_pk']).exists()
